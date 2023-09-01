@@ -113,6 +113,8 @@ const (
 
 var newExponentialBackoff = retry.NewExponentialBackoff
 
+var _ TaskEngine = &DockerTaskEngine{}
+
 // DockerTaskEngine is a state machine for managing a task and its containers
 // in ECS.
 //

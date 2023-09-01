@@ -128,12 +128,14 @@ func (dm *daemonManager) LoadImage(ctx context.Context, dockerClient dockerapi.D
 		logger.Warn(fmt.Sprintf("%s container tarball unavailable at path: %s", daemonImageToLoad, daemonImageTarPath), logger.Fields{
 			field.Error: err,
 		})
+		// TODO: this is a bug not exiting
 	}
 	logger.Debug(fmt.Sprintf("Loading %s container image from tarball: %s", daemonImageToLoad, daemonImageTarPath))
 	if loadErr = loader.LoadFromFile(ctx, daemonImageTarPath, dockerClient); loadErr != nil {
 		logger.Warn(fmt.Sprintf("Unable to load %s container image from tarball: %s", daemonImageToLoad, daemonImageTarPath), logger.Fields{
 			field.Error: loadErr,
 		})
+		// TODO: this is a bug not exiting
 	}
 	dm.managedDaemon.SetLoadedDaemonImageRef(dm.managedDaemon.GetImageRef())
 	loadedImageRef := dm.managedDaemon.GetLoadedDaemonImageRef()

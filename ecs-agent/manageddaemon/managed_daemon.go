@@ -57,6 +57,8 @@ type ManagedDaemon struct {
 	command              []string
 }
 
+// TODO: Do we need a MD interface here for Windows?
+
 // A valid managed daemon will require
 // healthcheck and mount points to be added
 func NewManagedDaemon(

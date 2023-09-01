@@ -16,6 +16,8 @@
 package engine
 
 import (
+	"runtime"
+
 	"github.com/aws/amazon-ecs-agent/agent/config"
 	"github.com/aws/amazon-ecs-agent/agent/containermetadata"
 	"github.com/aws/amazon-ecs-agent/agent/dockerclient/dockerapi"
@@ -46,5 +48,9 @@ func NewTaskEngine(cfg *config.Config, client dockerapi.DockerClient,
 		state, metadataManager, resourceFields, execCmdMgr,
 		serviceConnectManager, daemonManagers)
 
+	if runtime.GOOS == "windows" {
+		processTaskEngine := newProcessTaskEngine(daemonManagers)
+		return newTaskEngineWrapper(taskEngine, processTaskEngine)
+	}
 	return taskEngine
 }
